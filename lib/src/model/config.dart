@@ -43,6 +43,7 @@ class NumberPaginatorUIConfig {
   /// The [EdgeInsets] that should be used as padding for the number paginator's
   /// content.
   final EdgeInsets? contentPadding;
+  final Color? backgroundColor;
 
   /// The [TextStyle] that should be used for the [PaginatorButton]'s text.
   /// This property only takes effect if [mode] is set to
@@ -66,5 +67,6 @@ class NumberPaginatorUIConfig {
     this.contentPadding,
     this.buttonTextStyle,
     this.buttonPadding,
+    this.backgroundColor = const Color(0xFFFCFCFC),
   });
 }

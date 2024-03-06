@@ -7,10 +7,11 @@ import 'package:number_paginator/src/ui/widgets/inherited_number_paginator.dart'
 
 class NumberContent extends StatelessWidget {
   final int currentPage;
+  final Color color;
 
   const NumberContent({
     Key? key,
-    required this.currentPage,
+    required this.currentPage, required this.color,
   }) : super(key: key);
 
   @override
@@ -68,6 +69,7 @@ class NumberContent extends StatelessWidget {
         onPressed: () =>
             InheritedNumberPaginator.of(context).onPageChange?.call(index),
         selected: _selected(index),
+        background: color,
         child:
             AutoSizeText((index + 1).toString(), maxLines: 1, minFontSize: 5),
       );

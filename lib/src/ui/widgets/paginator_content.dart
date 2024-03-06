@@ -6,10 +6,11 @@ import 'package:number_paginator/src/ui/widgets/paginator_content/number_content
 
 class PaginatorContent extends StatelessWidget {
   final int currentPage;
+  final Color color;
 
   const PaginatorContent({
     Key? key,
-    required this.currentPage,
+    required this.currentPage, required this.color,
   }) : super(key: key);
 
   @override
@@ -19,7 +20,7 @@ class PaginatorContent extends StatelessWidget {
     switch (mode) {
       case ContentDisplayMode.numbers:
         return NumberContent(
-          currentPage: currentPage,
+          currentPage: currentPage, color: color,
         );
       case ContentDisplayMode.dropdown:
         return DropDownContent(
