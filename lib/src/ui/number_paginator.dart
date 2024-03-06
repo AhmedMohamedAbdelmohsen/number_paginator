@@ -154,8 +154,8 @@ class NumberPaginatorState extends State<NumberPaginator> {
       initialPage: widget.initialPage,
       onPageChange: _controller.navigateToPage,
       config: widget.config,
-      child: Container(
-        color: widget.config.backgroundColor,
+      child: SizedBox(
+        // color: widget.config.backgroundColor,
         height: widget.config.height,
         child: Row(
           mainAxisAlignment: widget.config.mainAxisAlignment,

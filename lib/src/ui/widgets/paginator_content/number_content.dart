@@ -11,7 +11,8 @@ class NumberContent extends StatelessWidget {
 
   const NumberContent({
     Key? key,
-    required this.currentPage, required this.color,
+    required this.currentPage,
+    required this.color,
   }) : super(key: key);
 
   @override
@@ -65,14 +66,30 @@ class NumberContent extends StatelessWidget {
   }
 
   /// Builds a button for the given index.
-  Widget _buildPageButton(BuildContext context, int index) => PaginatorButton(
-        onPressed: () =>
-            InheritedNumberPaginator.of(context).onPageChange?.call(index),
-        selected: _selected(index),
-        background: color,
-        child:
-            AutoSizeText((index + 1).toString(), maxLines: 1, minFontSize: 5),
-      );
+  Widget _buildPageButton(BuildContext context, int index) {
+    final config = InheritedNumberPaginator.of(context).config;
+
+    return PaginatorButton(
+      onPressed: () =>
+          InheritedNumberPaginator.of(context).onPageChange?.call(index),
+      selected: _selected(index),
+      background: color,
+      child: AutoSizeText((index + 1).toString(),
+          maxLines: 1,
+          minFontSize: 5,
+          style: config.buttonTextStyle
+              ?.copyWith(color: _foregroundColor(context, _selected(index)))),
+    );
+  }
+
+  Color? _foregroundColor(BuildContext context, bool selected) => selected
+      ? (InheritedNumberPaginator.of(context)
+              .config
+              .buttonSelectedForegroundColor ??
+          Colors.white)
+      : InheritedNumberPaginator.of(context)
+          .config
+          .buttonUnselectedForegroundColor;
 
   Widget _buildDots(BuildContext context) => AspectRatio(
         aspectRatio: 1,

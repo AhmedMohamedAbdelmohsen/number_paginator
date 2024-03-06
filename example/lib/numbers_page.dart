@@ -11,6 +11,7 @@ class NumbersPage extends StatefulWidget {
 class _NumbersPageState extends State<NumbersPage> {
   final int _numPages = 50;
   int _currentPage = 0;
+  final NumberPaginatorController _controller = NumberPaginatorController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +32,27 @@ class _NumbersPageState extends State<NumbersPage> {
         margin: EdgeInsets.zero,
         elevation: 4,
         child: NumberPaginator(
-          // by default, the paginator shows numbers as center content
           numberPages: _numPages,
-          onPageChange: (int index) {
+          initialPage: 0,
+          controller: _controller,
+          showFirstButton: true,
+          showLastButton: true,
+          config: NumberPaginatorUIConfig(
+              height: 48,
+              backgroundColor: const Color(0xffFCFCFC),
+              buttonShape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              buttonSelectedForegroundColor: Colors.white,
+              buttonUnselectedForegroundColor: Colors.black,
+              buttonTextStyle: TextStyle(color: Colors.white),
+              buttonUnselectedBackgroundColor: Colors.white,
+              buttonSelectedBackgroundColor: const Color(0xFF374761)),
+          onPageChange: (index) {
             setState(() {
               _currentPage = index;
             });
+            // refreshFunc(_currentPage);
           },
         ),
       ),

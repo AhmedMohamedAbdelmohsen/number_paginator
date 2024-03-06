@@ -18,64 +18,53 @@ class PaginatorButton extends StatelessWidget {
     Key? key,
     required this.onPressed,
     required this.child,
-    this.selected = false, required this.background,
+    this.selected = false,
+    required this.background,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final config = InheritedNumberPaginator
-        .of(context)
-        .config;
+    final config = InheritedNumberPaginator.of(context).config;
     return AspectRatio(
       aspectRatio: 1,
       child: Padding(
         padding: const EdgeInsets.all(4.0),
-        child: Container(
-          decoration: BoxDecoration(
-            color:background,
-            border: Border.all(color: const Color(0xFFF1F1F1),), // Grey border
-            borderRadius: BorderRadius.circular(
-                8), // Adjust the radius as needed
-          ),
-          child: TextButton(
-            onPressed: onPressed,
-            style: TextButton.styleFrom(
-              backgroundColor: _backgroundColor(context, selected),
-              foregroundColor: _foregroundColor(context, selected),
-              textStyle: config.buttonTextStyle,
+        child: Material(
+          type: MaterialType.transparency,
+          child: InkWell(
+            onTap: onPressed,
+            child: Container(
               padding: config.buttonPadding,
+              decoration: BoxDecoration(
+                color: _backgroundColor(context, selected),
+                border: selected ? null : Border.all(color: const Color(0xFFF1F1F1), width: 1.5),
+                borderRadius: BorderRadius.circular(8),
+                // foregroundColor: _foregroundColor(context, selected),
+              ),
+              alignment: Alignment.center,
+              child: child,
             ),
-            child: child,
           ),
         ),
       ),
     );
   }
 
-  Color? _backgroundColor(BuildContext context, bool selected) =>
-      selected
-          ? (InheritedNumberPaginator
-          .of(context)
-          .config
-          .buttonSelectedBackgroundColor ??
-          Theme
-              .of(context)
-              .colorScheme
-              .secondary)
-          : InheritedNumberPaginator
-          .of(context)
+  Color? _backgroundColor(BuildContext context, bool selected) => selected
+      ? (InheritedNumberPaginator.of(context)
+              .config
+              .buttonSelectedBackgroundColor ??
+          Theme.of(context).colorScheme.secondary)
+      : InheritedNumberPaginator.of(context)
           .config
           .buttonUnselectedBackgroundColor;
 
-  Color? _foregroundColor(BuildContext context, bool selected) =>
-      selected
-          ? (InheritedNumberPaginator
-          .of(context)
-          .config
-          .buttonSelectedForegroundColor ??
+  Color? _foregroundColor(BuildContext context, bool selected) => selected
+      ? (InheritedNumberPaginator.of(context)
+              .config
+              .buttonSelectedForegroundColor ??
           Colors.white)
-          : InheritedNumberPaginator
-          .of(context)
+      : InheritedNumberPaginator.of(context)
           .config
           .buttonUnselectedForegroundColor;
 }
